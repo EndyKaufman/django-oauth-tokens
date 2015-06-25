@@ -158,7 +158,8 @@ class AccessTokenManager(models.Manager):
                 token = self.get_token_of_class(token_class, user).get()
             except (TokenRequestDenied, AccountLocked, LoginPasswordError, WrongAuthorizationResponseUrl), e:
                 log.error(u"Error '%s' while getting new token for provider %s and user %s" % (e, provider, user))
-                user.inactivate(e)
+                if user!=None:
+                    user.inactivate(e)
                 continue
 
             if not HISTORY:
