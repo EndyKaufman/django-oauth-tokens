@@ -160,7 +160,7 @@ class AccessTokenManager(models.Manager):
                 log.error(u"Error '%s' while getting new token for provider %s and user %s" % (e, provider, user))
                 if user!=None:
                     user.inactivate(e)
-                continue
+                    continue
 
             if not HISTORY:
                 self.filter(provider=provider, user_credentials=user).delete()
